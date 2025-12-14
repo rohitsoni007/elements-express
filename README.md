@@ -69,7 +69,7 @@ Place your OpenAPI specification file in your project and serve it with Express:
 app.use('/openapi.json', express.static('public/openapi.json'));
 ```
 
-## 🔍 SEO Keywords
+## 🔍 Keywords
 
 Stoplight Elements, Express middleware, API documentation, OpenAPI documentation, Swagger alternative, interactive API docs, REST API documentation, developer portal, API explorer, Express.js documentation, API reference, documentation generator, API visualization, OpenAPI 3.0, OpenAPI 3.1
 
