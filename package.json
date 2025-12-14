@@ -1,0 +1,58 @@
+{
+  "name": "elements-express",
+  "version": "0.0.1",
+  "description": "Express middleware for serving Stoplight Elements API documentation",
+  "license": "MIT",
+  "author": "Rohit Soni",
+  "type": "commonjs",
+  "main": "src/index.js",
+  "files": [
+    "src/",
+    "LICENSE",
+    "README.md",
+    "CONTRIBUTING.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "example": "node examples/basic-usage.js",
+    "prepublishOnly": "npm test && npm run format:check"
+  },
+  "keywords": [
+    "express",
+    "middleware",
+    "stoplight",
+    "elements",
+    "api",
+    "documentation",
+    "openapi",
+    "swagger"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rohitsoni007/elements-express.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rohitsoni007/elements-express/issues"
+  },
+  "homepage": "https://github.com/rohitsoni007/elements-express#readme",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "peerDependencies": {
+    "express": "^4.0.0 || ^5.2.1"
+  },
+  "devDependencies": {
+    "express": "^5.2.1",
+    "jest": "^30.2.0",
+    "prettier": "^3.7.4",
+    "supertest": "^7.1.4"
+  },
+  "dependencies": {
+    "@stoplight/elements": "^9.0.13"
+  }
+}
