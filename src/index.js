@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const { getAssetPath } = require('elements-dist');
 
 /**
  * Express middleware for serving Stoplight Elements API documentation with embedded static assets
@@ -21,16 +22,7 @@ function elements(options = {}) {
   };
 
   // Get the path to Elements static assets
-  let elementsPath;
-  try {
-    elementsPath = path.dirname(
-      require.resolve('@stoplight/elements/web-components.min.js')
-    );
-  } catch (err) {
-    throw new Error(
-      'Could not resolve @stoplight/elements. Make sure it is installed.'
-    );
-  }
+  const elementsPath = getAssetPath();
 
   // Create a router to handle both static assets and documentation
   const router = express.Router();
@@ -45,22 +37,19 @@ function elements(options = {}) {
       <html>
       <head>
       <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
       <title>${opts.title}</title>
-
       <!-- Stoplight Elements CSS -->
       <link rel="stylesheet" href="./styles.min.css" />
-
       <!-- Stoplight Elements JS -->
       <script type="module" src="./web-components.min.js"></script>
-
       <style>
-          html, body {
+        html, body {
           height: 100%;
           margin: 0;
-          }
+        }
       </style>
       </head>
-
       <body>
       <elements-api
           apiDescriptionUrl="${opts.apiDescriptionUrl}"
