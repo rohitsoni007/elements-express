@@ -54,6 +54,17 @@ app.listen(3000, () => {
 |--------|------|---------|-------------|
 | `apiDescriptionUrl` | `string` | **Required** | URL to your OpenAPI specification (JSON or YAML) |
 | `title` | `string` | `'API Documentation'` | Custom title for the documentation page |
+| `basePath` | `string` | `undefined` | Base path to the API |
+| `hideTryItPanel` | `boolean` | `false` | Hide the Try It panel in the documentation |
+| `hideInternal` | `boolean` | `false` | Hide internal operations in the documentation |
+| `hideTryIt` | `boolean` | `false` | Hide the Try It feature in the documentation |
+| `hideSchemas` | `boolean` | `false` | Hide schemas in the documentation |
+| `hideExport` | `boolean` | `false` | Hide export functionality in the documentation |
+| `tryItCorsProxy` | `string` | `undefined` | CORS proxy URL for Try It feature |
+| `tryItCredentialPolicy` | `string` | `undefined` | Credential policy for Try It feature |
+| `logo` | `string` | `undefined` | Logo URL for the documentation |
+| `layout` | `string` | `'sidebar'` | Layout for the documentation ('sidebar' or 'stacked') |
+| `router` | `string` | `'hash'` | Router for the documentation ('history', 'hash', or 'memory') |
 
 ## 💡 How It Works
 

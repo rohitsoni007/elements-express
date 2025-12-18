@@ -7,6 +7,17 @@ const { getAssetPath } = require('elements-dist');
  * @param {Object} options - Configuration options
  * @param {string} options.apiDescriptionUrl - URL to the OpenAPI specification
  * @param {string} [options.title='API Documentation'] - Title for the documentation page
+ * @param {string} [options.basePath] - Base path to the API
+ * @param {boolean} [options.hideTryItPanel] - Hide the Try It panel in the documentation
+ * @param {boolean} [options.hideInternal] - Hide internal operations in the documentation
+ * @param {boolean} [options.hideTryIt] - Hide the Try It feature in the documentation
+ * @param {boolean} [options.hideSchemas] - Hide schemas in the documentation
+ * @param {boolean} [options.hideExport] - Hide export functionality in the documentation
+ * @param {string} [options.tryItCorsProxy] - CORS proxy URL for Try It feature
+ * @param {string} [options.tryItCredentialPolicy] - Credential policy for Try It feature
+ * @param {string} [options.logo] - Logo URL for the documentation
+ * @param {string} [options.layout] - Layout for the documentation ('sidebar' or 'stacked')
+ * @param {string} [options.router] - Router for the documentation ('history', 'hash', or 'memory')
  * @returns {Function} Express middleware function
  */
 function elements(options = {}) {
@@ -18,6 +29,16 @@ function elements(options = {}) {
   // Set default options
   const opts = {
     title: 'API Documentation',
+    hideTryItPanel: false,
+    hideInternal: false,
+    hideTryIt: false,
+    hideSchemas: false,
+    hideExport: false,
+    tryItCorsProxy: undefined,
+    tryItCredentialPolicy: undefined,
+    logo: undefined,
+    layout: 'sidebar',
+    router: 'hash',
     ...options,
   };
 
@@ -53,8 +74,17 @@ function elements(options = {}) {
       <body>
       <elements-api
           apiDescriptionUrl="${opts.apiDescriptionUrl}"
-          router="hash"
-          layout="sidebar"
+          router="${opts.router}"
+          layout="${opts.layout}"
+          ${opts.basePath ? `basePath="${opts.basePath}"` : ''}
+          ${opts.hideTryItPanel ? 'hideTryItPanel' : ''}
+          ${opts.hideInternal ? 'hideInternal' : ''}
+          ${opts.hideTryIt ? 'hideTryIt' : ''}
+          ${opts.hideSchemas ? 'hideSchemas' : ''}
+          ${opts.hideExport ? 'hideExport' : ''}
+          ${opts.tryItCorsProxy ? `tryItCorsProxy="${opts.tryItCorsProxy}"` : ''}
+          ${opts.tryItCredentialPolicy ? `tryItCredentialPolicy="${opts.tryItCredentialPolicy}"` : ''}
+          ${opts.logo ? `logo="${opts.logo}"` : ''}
       ></elements-api>
       </body>
       </html>
