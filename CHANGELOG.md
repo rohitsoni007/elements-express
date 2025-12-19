@@ -7,10 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2025-12-19
+
+Added Typescript
+
 ## [0.1.0] - 2025-12-18
 
 ### Added
 
+- Added `basePath` string option for specifying base path to the API
 - Added `hideTryItPanel` boolean option to hide the Try It panel in documentation
 - Added `hideInternal` boolean option to hide internal operations
 - Added `hideTryIt` boolean option to hide the Try It feature

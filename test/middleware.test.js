@@ -1,6 +1,6 @@
 const express = require('express');
 const request = require('supertest');
-const elements = require('../src/index');
+const elements = require('../dist/index');
 
 // Mock the @stoplight/elements module
 jest.mock('@stoplight/elements/web-components.min.js', () => {}, {
@@ -29,10 +29,13 @@ describe('elements-express', () => {
 
   it('should include basePath attribute when provided', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json',
-      basePath: '/api/v1'
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+        basePath: '/api/v1',
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -41,9 +44,12 @@ describe('elements-express', () => {
 
   it('should not include basePath attribute when not provided', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json'
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -52,10 +58,13 @@ describe('elements-express', () => {
 
   it('should include hideTryItPanel attribute when set to true', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json',
-      hideTryItPanel: true
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+        hideTryItPanel: true,
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -64,10 +73,13 @@ describe('elements-express', () => {
 
   it('should not include hideTryItPanel attribute when set to false', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json',
-      hideTryItPanel: false
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+        hideTryItPanel: false,
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -76,9 +88,12 @@ describe('elements-express', () => {
 
   it('should not include hideTryItPanel attribute when not provided', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json'
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -87,10 +102,13 @@ describe('elements-express', () => {
 
   it('should include hideInternal attribute when set to true', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json',
-      hideInternal: true
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+        hideInternal: true,
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -99,10 +117,13 @@ describe('elements-express', () => {
 
   it('should not include hideInternal attribute when set to false', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json',
-      hideInternal: false
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+        hideInternal: false,
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -111,9 +132,12 @@ describe('elements-express', () => {
 
   it('should not include hideInternal attribute when not provided', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json'
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -122,10 +146,13 @@ describe('elements-express', () => {
 
   it('should include hideTryIt attribute when set to true', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json',
-      hideTryIt: true
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+        hideTryIt: true,
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -134,10 +161,13 @@ describe('elements-express', () => {
 
   it('should not include hideTryIt attribute when set to false', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json',
-      hideTryIt: false
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+        hideTryIt: false,
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -146,9 +176,12 @@ describe('elements-express', () => {
 
   it('should not include hideTryIt attribute when not provided', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json'
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -157,10 +190,13 @@ describe('elements-express', () => {
 
   it('should include hideSchemas attribute when set to true', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json',
-      hideSchemas: true
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+        hideSchemas: true,
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -169,10 +205,13 @@ describe('elements-express', () => {
 
   it('should not include hideSchemas attribute when set to false', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json',
-      hideSchemas: false
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+        hideSchemas: false,
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -181,9 +220,12 @@ describe('elements-express', () => {
 
   it('should not include hideSchemas attribute when not provided', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json'
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -192,10 +234,13 @@ describe('elements-express', () => {
 
   it('should include hideExport attribute when set to true', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json',
-      hideExport: true
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+        hideExport: true,
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -204,10 +249,13 @@ describe('elements-express', () => {
 
   it('should not include hideExport attribute when set to false', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json',
-      hideExport: false
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+        hideExport: false,
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -216,9 +264,12 @@ describe('elements-express', () => {
 
   it('should not include hideExport attribute when not provided', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json'
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -227,10 +278,13 @@ describe('elements-express', () => {
 
   it('should include tryItCorsProxy attribute when provided', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json',
-      tryItCorsProxy: 'https://cors.proxy.com'
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+        tryItCorsProxy: 'https://cors.proxy.com',
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -239,9 +293,12 @@ describe('elements-express', () => {
 
   it('should not include tryItCorsProxy attribute when not provided', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json'
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -250,10 +307,13 @@ describe('elements-express', () => {
 
   it('should include tryItCredentialPolicy attribute when provided', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json',
-      tryItCredentialPolicy: 'include'
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+        tryItCredentialPolicy: 'include',
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -262,9 +322,12 @@ describe('elements-express', () => {
 
   it('should not include tryItCredentialPolicy attribute when not provided', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json'
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -273,10 +336,13 @@ describe('elements-express', () => {
 
   it('should include logo attribute when provided', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json',
-      logo: 'https://example.com/logo.png'
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+        logo: 'https://example.com/logo.png',
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -285,9 +351,12 @@ describe('elements-express', () => {
 
   it('should not include logo attribute when not provided', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json'
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -296,9 +365,12 @@ describe('elements-express', () => {
 
   it('should use sidebar layout by default', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json'
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -307,10 +379,13 @@ describe('elements-express', () => {
 
   it('should use stacked layout when specified', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json',
-      layout: 'stacked'
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+        layout: 'stacked',
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -319,9 +394,12 @@ describe('elements-express', () => {
 
   it('should use hash router by default', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json'
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -330,10 +408,13 @@ describe('elements-express', () => {
 
   it('should use history router when specified', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json',
-      router: 'history'
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+        router: 'history',
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);
@@ -342,10 +423,13 @@ describe('elements-express', () => {
 
   it('should use memory router when specified', async () => {
     const app = express();
-    app.use('/docs', elements({ 
-      apiDescriptionUrl: '/openapi.json',
-      router: 'memory'
-    }));
+    app.use(
+      '/docs',
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+        router: 'memory',
+      })
+    );
 
     const response = await request(app).get('/docs/');
     expect(response.status).toBe(200);

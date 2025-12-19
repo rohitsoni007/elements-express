@@ -28,9 +28,33 @@ npm install elements-express
 
 ### Basic Setup
 
+#### CommonJS
+
 ```javascript
 const express = require('express');
 const elements = require('elements-express');
+
+const app = express();
+
+// Serve Stoplight Elements documentation with embedded static assets
+app.use('/docs', elements({
+  apiDescriptionUrl: '/openapi.json',
+  title: 'My API Documentation', // Optional: custom page title
+}));
+
+// Serve your OpenAPI specification
+app.use('/openapi.json', express.static('path/to/your/openapi.json'));
+
+app.listen(3000, () => {
+  console.log('Documentation available at http://localhost:3000/docs');
+});
+```
+
+#### ES Modules
+
+```typescript
+import express from 'express';
+import elements from 'elements-express';
 
 const app = express();
 
@@ -82,7 +106,7 @@ app.use('/openapi.json', express.static('public/openapi.json'));
 
 ## 🔍 Keywords
 
-Stoplight Elements, Express middleware, API documentation, OpenAPI documentation, Swagger alternative, interactive API docs, REST API documentation, developer portal, API explorer, Express.js documentation, API reference, documentation generator, API visualization, OpenAPI 3.0, OpenAPI 3.1
+Stoplight Elements, Express middleware, API documentation, OpenAPI documentation, Swagger alternative, Redoc alternative, interactive API docs, REST API documentation, developer portal, API explorer, Express.js documentation, API reference, documentation generator, API visualization, OpenAPI 3.0, OpenAPI 3.1
 
 ## 📄 License
 
