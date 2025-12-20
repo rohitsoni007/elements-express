@@ -5,20 +5,20 @@
   "license": "MIT",
   "author": "Rohit Soni",
   "type": "commonjs",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
+    "dist/",
     "src/",
     "LICENSE",
     "README.md"
   ],
   "scripts": {
+    "build": "tsc",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "format": "prettier --write src/",
-    "format:check": "prettier --check src/",
-    "example": "node examples/basic-usage.js",
-    "prepublishOnly": "npm test && npm run format:check"
+    "prepublishOnly": "npm run build && npm test",
+    "dev": "tsc --watch"
   },
   "keywords": [
     "express",
@@ -28,7 +28,8 @@
     "api",
     "documentation",
     "openapi",
-    "swagger"
+    "swagger",
+    "redoc"
   ],
   "repository": {
     "type": "git",
@@ -42,15 +43,18 @@
     "node": ">=20.0.0"
   },
   "peerDependencies": {
-    "express": "^4.0.0 || ^5.2.1"
+    "express": ">=4.0.0 || >=5.0.0"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^20.19.27",
     "express": "^5.2.1",
     "jest": "^30.2.0",
-    "prettier": "^3.7.4",
-    "supertest": "^7.1.4"
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
-    "elements-dist": "^0.0.3"
+    "elements-dist": "^9.0.13"
   }
 }

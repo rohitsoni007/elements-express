@@ -1,6 +1,6 @@
-const express = require('express');
-const path = require('path');
-const elements = require('elements-express');
+import express from 'express';
+import path from 'path';
+import elements from 'elements-express';
 
 const app = express();
 
@@ -26,7 +26,10 @@ app.use(
 
 // Serve the OpenAPI specification
 // You would replace this with your actual OpenAPI specification
-app.use('/openapi.json', express.static(path.join(__dirname, 'petstore.json')));
+app.use(
+  '/openapi.json',
+  express.static(path.join(process.cwd(), 'examples', 'petstore.json'))
+);
 
 // Simple health check endpoint
 app.get('/health', (req, res) => {
