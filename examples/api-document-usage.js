@@ -1,14 +1,20 @@
 const express = require('express');
 const path = require('path');
 const elements = require('elements-express');
+const fs = require('fs');
 
 const app = express();
 
-// Serve Stoplight Elements documentation with embedded static assets (one-liner)
+// Read the OpenAPI specification directly
+const openApiSpec = JSON.parse(
+  fs.readFileSync(path.join(__dirname, 'petstore.json'), 'utf8')
+);
+
+// Serve Stoplight Elements documentation with embedded static assets using apiDescriptionDocument
 app.use(
   '/docs',
   elements({
-    apiDescriptionUrl: '/openapi.json',
+    apiDescriptionDocument: openApiSpec,
     title: 'Petstore API Documentation',
     basePath: '/api/v1', // Optional: base path for the API
     hideTryItPanel: false, // Optional: hide the Try It panel
@@ -23,10 +29,6 @@ app.use(
     router: 'hash', // Optional: router for the documentation ('history', 'hash', 'memory', or 'static')
   })
 );
-
-// Serve the OpenAPI specification
-// You would replace this with your actual OpenAPI specification
-app.use('/openapi.json', express.static(path.join(__dirname, 'petstore.json')));
 
 // Simple health check endpoint
 app.get('/health', (req, res) => {

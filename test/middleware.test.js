@@ -8,12 +8,30 @@ jest.mock('@stoplight/elements/web-components.min.js', () => {}, {
 });
 
 describe('elements-express', () => {
-  it('should throw an error if apiDescriptionUrl is not provided', () => {
-    expect(() => elements()).toThrow('apiDescriptionUrl is required');
+  it('should throw an error if neither apiDescriptionUrl nor apiDescriptionDocument is provided', () => {
+    expect(() => elements()).toThrow(
+      'Either apiDescriptionUrl or apiDescriptionDocument is required'
+    );
+  });
+
+  it('should throw an error if both apiDescriptionUrl and apiDescriptionDocument are provided', () => {
+    expect(() =>
+      elements({
+        apiDescriptionUrl: '/openapi.json',
+        apiDescriptionDocument: {},
+      })
+    ).toThrow(
+      'Only one of apiDescriptionUrl or apiDescriptionDocument should be provided'
+    );
   });
 
   it('should return a middleware function', () => {
     const middleware = elements({ apiDescriptionUrl: '/openapi.json' });
+    expect(typeof middleware).toBe('function');
+  });
+
+  it('should return a middleware function when using apiDescriptionDocument', () => {
+    const middleware = elements({ apiDescriptionDocument: {} });
     expect(typeof middleware).toBe('function');
   });
 
@@ -25,6 +43,51 @@ describe('elements-express', () => {
     expect(response.status).toBe(200);
     expect(response.headers['content-type']).toContain('text/html');
     expect(response.text).toContain('<elements-api');
+  });
+
+  it('should serve HTML for GET requests when using apiDescriptionDocument', async () => {
+    const app = express();
+    app.use('/docs', elements({ apiDescriptionDocument: {} }));
+
+    const response = await request(app).get('/docs/');
+    expect(response.status).toBe(200);
+    expect(response.headers['content-type']).toContain('text/html');
+    expect(response.text).toContain('<elements-api');
+  });
+
+  it('should include apiDescriptionUrl attribute when provided', async () => {
+    const app = express();
+    app.use('/docs', elements({ apiDescriptionUrl: '/openapi.json' }));
+
+    const response = await request(app).get('/docs/');
+    expect(response.status).toBe(200);
+    expect(response.text).toContain('apiDescriptionUrl="/openapi.json"');
+  });
+
+  it('should include apiDescriptionDocument attribute when provided as object', async () => {
+    const app = express();
+    const apiSpec = {
+      openapi: '3.0.0',
+      info: { title: 'Test API', version: '1.0.0' },
+    };
+    app.use('/docs', elements({ apiDescriptionDocument: apiSpec }));
+
+    const response = await request(app).get('/docs/');
+    expect(response.status).toBe(200);
+    expect(response.text).toContain(
+      'apiDescriptionDocument=\'{"openapi":"3.0.0","info":{"title":"Test API","version":"1.0.0"}}\''
+    );
+  });
+
+  it('should include apiDescriptionDocument attribute when provided as string', async () => {
+    const app = express();
+    const apiSpec =
+      '{"openapi":"3.0.0","info":{"title":"Test API","version":"1.0.0"}}';
+    app.use('/docs', elements({ apiDescriptionDocument: apiSpec }));
+
+    const response = await request(app).get('/docs/');
+    expect(response.status).toBe(200);
+    expect(response.text).toContain("apiDescriptionDocument='" + apiSpec + "'");
   });
 
   it('should include basePath attribute when provided', async () => {
