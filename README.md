@@ -28,7 +28,7 @@ npm install elements-express
 
 ### Basic Setup
 
-#### CommonJS
+#### Using apiDescriptionUrl (External API Spec)
 
 ```javascript
 const express = require('express');
@@ -50,22 +50,46 @@ app.listen(3000, () => {
 });
 ```
 
+#### Using apiDescriptionDocument (Inline API Spec)
+
+```javascript
+const express = require('express');
+const elements = require('elements-express');
+const fs = require('fs');
+
+const app = express();
+
+// Read the OpenAPI specification directly
+const openApiSpec = JSON.parse(fs.readFileSync('path/to/your/openapi.json', 'utf8'));
+
+// Serve Stoplight Elements documentation with embedded static assets
+app.use('/docs', elements({
+  apiDescriptionDocument: openApiSpec,
+  title: 'My API Documentation', // Optional: custom page title
+}));
+
+app.listen(3000, () => {
+  console.log('Documentation available at http://localhost:3000/docs');
+});
+```
+
 #### ES Modules
 
 ```typescript
 import express from 'express';
 import elements from 'elements-express';
+import fs from 'fs';
 
 const app = express();
 
+// Read the OpenAPI specification directly
+const openApiSpec = JSON.parse(fs.readFileSync('path/to/your/openapi.json', 'utf8'));
+
 // Serve Stoplight Elements documentation with embedded static assets
 app.use('/docs', elements({
-  apiDescriptionUrl: '/openapi.json',
+  apiDescriptionDocument: openApiSpec,
   title: 'My API Documentation', // Optional: custom page title
 }));
-
-// Serve your OpenAPI specification
-app.use('/openapi.json', express.static('path/to/your/openapi.json'));
 
 app.listen(3000, () => {
   console.log('Documentation available at http://localhost:3000/docs');
@@ -76,7 +100,8 @@ app.listen(3000, () => {
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `apiDescriptionUrl` | `string` | **Required** | URL to your OpenAPI specification (JSON or YAML) |
+| `apiDescriptionUrl` | `string` | `undefined` | URL to your OpenAPI specification (JSON or YAML). Either `apiDescriptionUrl` or `apiDescriptionDocument` is required. |
+| `apiDescriptionDocument` | `object/string` | `undefined` | OpenAPI specification as a JavaScript object or JSON/YAML string. Either `apiDescriptionUrl` or `apiDescriptionDocument` is required. |
 | `title` | `string` | `'API Documentation'` | Custom title for the documentation page |
 | `basePath` | `string` | `undefined` | Base path to the API |
 | `hideTryItPanel` | `boolean` | `false` | Hide the Try It panel in the documentation |
@@ -87,12 +112,12 @@ app.listen(3000, () => {
 | `tryItCorsProxy` | `string` | `undefined` | CORS proxy URL for Try It feature |
 | `tryItCredentialPolicy` | `string` | `undefined` | Credential policy for Try It feature |
 | `logo` | `string` | `undefined` | Logo URL for the documentation |
-| `layout` | `string` | `'sidebar'` | Layout for the documentation ('sidebar' or 'stacked') |
-| `router` | `string` | `'hash'` | Router for the documentation ('history', 'hash', or 'memory') |
+| `layout` | `string` | `'sidebar'` | Layout for the documentation ('sidebar', 'responsive', or 'stacked') |
+| `router` | `string` | `'hash'` | Router for the documentation ('history', 'hash', 'memory', or 'static') |
 
 ## 💡 How It Works
 
-1. The middleware serves both the static CSS and JavaScript files from the `@stoplight/elements` package and generates an HTML page that includes the Stoplight Elements web component
+1. The middleware serves both the static CSS and JavaScript files from the `elements-dist` package and generates an HTML page that includes the Stoplight Elements web component
 2. The web component fetches your OpenAPI specification and renders interactive documentation
 3. Developers can browse endpoints, test APIs directly in-browser, and understand your API quickly
 

@@ -19,8 +19,8 @@ app.use(
     tryItCorsProxy: undefined, // Optional: CORS proxy URL for Try It feature
     tryItCredentialPolicy: undefined, // Optional: credential policy for Try It feature
     logo: undefined, // Optional: logo URL for the documentation
-    layout: 'sidebar', // Optional: layout for the documentation ('sidebar' or 'stacked')
-    router: 'hash', // Optional: router for the documentation ('history', 'hash', or 'memory')
+    layout: 'sidebar', // Optional: layout for the documentation ('sidebar', 'responsive', or 'stacked')
+    router: 'hash', // Optional: router for the documentation ('history', 'hash', 'memory', or 'static')
   })
 );
 

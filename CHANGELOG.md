@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0]
+
+### Added
+
+- Added flexible `layout` option supporting 'responsive' value
+- Added flexible `router` option supporting 'static' value
+- Added `apiDescriptionDocument` option
+
 ## [0.2.0] - 2025-12-19
 
 Added Typescript
